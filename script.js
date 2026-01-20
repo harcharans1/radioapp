@@ -42,15 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             title: "ਅਖੰਡ ਕੀਰਤਨ",
             artist: "Akhand Kirtan Jatha",
-            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            src: "https://radio.sikhnet.com/proxy/channel1/stream_high_autodj",
             cover: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSI7MiYnO6SV4jXDwvHx0p-W1InbtTrknuvOatvtIJzl7FSE2ATnkS1ynjRTYLOtYYzA1vO",
             duration: "2:21"
         },
         {
-            title: "ਦੁੱਖ ਨਿਵਾਰਨ ਸਾਹਿਬ ਲੁਧਿਆਣਾ ",
-            artist: "Dukh Nivaran Sahib - Ludhiana",
-            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-            cover: "https://www.billboard.com/wp-content/uploads/2023/08/olivia-rodrigo-press-cr-Zamar-Velez-2023-billboard-1548.jpg",
+            title: "Darbar sahib",
+            artist: "Waheguru Simran",
+            src: "https://gurbanikirtan.radioca.st/start.mp3",
+            cover: "https://www.gurbanikirtan247.com/",
             duration: "2:58"
         }
     ];
@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.style.opacity = 1;
     });
 });
+
 
 
 
