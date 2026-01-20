@@ -33,22 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: "3:35"
         },
         {
-            title: "Levitating",
-            artist: "Dua Lipa",
+            title: "Divine Love",
+            artist: "Waheguru",
             src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
             cover: "https://images.unsplash.com/photo-1638347419042-40d24bb64d0d?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             duration: "3:23"
         },
         {
-            title: "Stay",
-            artist: "The Kid LAROI, Justin Bieber",
+            title: "AKJ Kirtan",
+            artist: "Akhand Kirtan Jatha",
             src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
             cover: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSI7MiYnO6SV4jXDwvHx0p-W1InbtTrknuvOatvtIJzl7FSE2ATnkS1ynjRTYLOtYYzA1vO",
             duration: "2:21"
         },
         {
-            title: "Good 4 U",
-            artist: "Olivia Rodrigo",
+            title: "Dukh Nivaran Sahib - Ludhiana ",
+            artist: "",
             src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
             cover: "https://www.billboard.com/wp-content/uploads/2023/08/olivia-rodrigo-press-cr-Zamar-Velez-2023-billboard-1548.jpg",
             duration: "2:58"
