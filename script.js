@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             title: "Divine Love",
             artist: "Waheguru",
-            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            src: "https://usa3.fastcast4u.com/proxy/radiododra2?mp=/1",
             cover: "https://images.unsplash.com/photo-1638347419042-40d24bb64d0d?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             duration: "3:23"
         },
@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.style.opacity = 1;
     });
 });
+
 
 
 
