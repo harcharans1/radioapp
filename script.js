@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: "3:20"
         },
         {
-            title: "Save Your Tears",
-            artist: "The Weeknd",
+            title: "Brahm Bunga Dodra",
+            artist: "Gurduwara Brahm Bunga Sahib Dodra",
             src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
             cover: "https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?q=80&w=2104&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             duration: "3:35"
