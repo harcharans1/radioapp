@@ -1,307 +1,288 @@
- const stations = [
-            {
-                id: 1,
-                name: "Chillhop Radio",
-                genre: "Lo-fi, Chillhop",
-                frequency: "101.5 FM",
-                streamUrl: "https://live.sgpc.net:8442/; nocache=889869",
-                color: "#4cc9f0",
-                icon: "fas fa-headphones"
-            },
-            {
-                id: 2,
-                name: "Rock Classics",
-                genre: "Classic Rock",
-                frequency: "98.7 FM",
-                streamUrl: "https://icecast.rockradio.com/rockradio",
-                color: "#f72585",
-                icon: "fas fa-guitar"
-            },
-            {
-                id: 3,
-                name: "Jazz Vibes",
-                genre: "Smooth Jazz",
-                frequency: "91.2 FM",
-                streamUrl: "https://jazz.stream.publicradio.org/jazz.mp3",
-                color: "#7209b7",
-                icon: "fas fa-music"
-            },
-            {
-                id: 4,
-                name: "Electronic Beats",
-                genre: "Electronic, EDM",
-                frequency: "104.3 FM",
-                streamUrl: "https://stream.edmradio.com/edm",
-                color: "#4361ee",
-                icon: "fas fa-compact-disc"
-            },
-            {
-                id: 5,
-                name: "Classical Masterpieces",
-                genre: "Classical",
-                frequency: "99.9 FM",
-                streamUrl: "https://stream.classicalradio.com/classical",
-                color: "#4a4e69",
-                icon: "fas fa-violin"
-            },
-            {
-                id: 6,
-                name: "Indie Mix",
-                genre: "Indie, Alternative",
-                frequency: "96.5 FM",
-                streamUrl: "https://stream.indieradio.com/indie",
-                color: "#38b000",
-                icon: "fas fa-microphone-alt"
-            }
-        ];
-
-        // Audio player
-        let currentStationIndex = 0;
-        let isPlaying = false;
-        let audio = null;
-        let visualizerBars = [];
-        let volume = 70;
-
-        // DOM Elements
-        const playBtn = document.getElementById('play-btn');
-        const playIcon = document.getElementById('play-icon');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const volumeSlider = document.getElementById('volume-slider');
-        const stationsContainer = document.getElementById('stations-container');
-        const currentStationEl = document.getElementById('current-station');
-        const currentTrackEl = document.getElementById('current-track');
-        const currentArtistEl = document.getElementById('current-artist');
-        const visualizerEl = document.getElementById('visualizer');
-        const nowPlayingFooter = document.getElementById('now-playing-footer');
-
-        // Initialize the app
-        function init() {
-            createVisualizer();
-            renderStations();
-            loadStation(currentStationIndex);
-            updatePlayerDisplay();
-            
-            // Set initial volume
-            if (audio) {
-                audio.volume = volume / 100;
-            }
-            
-            // Event listeners
-            playBtn.addEventListener('click', togglePlay);
-            prevBtn.addEventListener('click', playPrevStation);
-            nextBtn.addEventListener('click', playNextStation);
-            volumeSlider.addEventListener('input', updateVolume);
-            
-            // Auto-update track info (simulated)
-            setInterval(updateTrackInfo, 10000);
-            
-            // Animate visualizer when playing
-            setInterval(animateVisualizer, 200);
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const audioPlayer = document.getElementById('audio-player');
+    const playBtn = document.getElementById('play-btn');
+    const playIcon = document.getElementById('play-icon');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    const repeatBtn = document.getElementById('repeat-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const volumeSlider = document.getElementById('volume-slider');
+    const songTitle = document.getElementById('song-title');
+    const artistName = document.getElementById('artist-name');
+    const albumArt = document.getElementById('album-art');
+    const queueList = document.getElementById('queue-list');
+    
+    // Music library
+    const songs = [
+        {
+            title: "Blinding Lights",
+            artist: "The Weeknd",
+            src: "https://live.sgpc.net:8442/; nocache=889869",
+            cover: "https://images.unsplash.com/photo-1736317859257-97602f9175a1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            duration: "3:20"
+        },
+        {
+            title: "Save Your Tears",
+            artist: "The Weeknd",
+            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            cover: "https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?q=80&w=2104&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            duration: "3:35"
+        },
+        {
+            title: "Levitating",
+            artist: "Dua Lipa",
+            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            cover: "https://images.unsplash.com/photo-1638347419042-40d24bb64d0d?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            duration: "3:23"
+        },
+        {
+            title: "Stay",
+            artist: "The Kid LAROI, Justin Bieber",
+            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            cover: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSI7MiYnO6SV4jXDwvHx0p-W1InbtTrknuvOatvtIJzl7FSE2ATnkS1ynjRTYLOtYYzA1vO",
+            duration: "2:21"
+        },
+        {
+            title: "Good 4 U",
+            artist: "Olivia Rodrigo",
+            src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+            cover: "https://www.billboard.com/wp-content/uploads/2023/08/olivia-rodrigo-press-cr-Zamar-Velez-2023-billboard-1548.jpg",
+            duration: "2:58"
         }
-
-        // Create visualizer bars
-        function createVisualizer() {
-            visualizerEl.innerHTML = '';
-            for (let i = 0; i < 40; i++) {
-                const bar = document.createElement('div');
-                bar.classList.add('bar');
-                bar.style.height = '10px';
-                visualizerEl.appendChild(bar);
-                visualizerBars.push(bar);
-            }
+    ];
+    
+    // Player state
+    let currentSongIndex = 0;
+    let isPlaying = false;
+    let isShuffled = false;
+    let isRepeated = false;
+    let originalQueue = [...songs];
+    let shuffledQueue = [...songs].sort(() => Math.random() - 0.5);
+    
+    // Initialize player
+    function initPlayer() {
+        loadSong(currentSongIndex);
+        renderQueue();
+        updatePlayerState();
+    }
+    
+    // Load song
+    function loadSong(index) {
+        const song = isShuffled ? shuffledQueue[index] : originalQueue[index];
+        songTitle.textContent = song.title;
+        artistName.textContent = song.artist;
+        albumArt.src = song.cover;
+        audioPlayer.src = song.src;
+        durationEl.textContent = song.duration;
+        
+        // Add active class to current song in queue
+        const queueItems = document.querySelectorAll('.queue-item');
+        queueItems.forEach(item => item.classList.remove('active'));
+        if (queueItems[index]) {
+            queueItems[index].classList.add('active');
         }
-
-        // Animate visualizer bars
-        function animateVisualizer() {
-            if (!isPlaying) return;
-            
-            visualizerBars.forEach(bar => {
-                const randomHeight = Math.floor(Math.random() * 80) + 10;
-                bar.style.height = `${randomHeight}px`;
-                bar.style.opacity = Math.random() * 0.5 + 0.5;
-            });
+    }
+    
+    // Play song
+    function playSong() {
+        isPlaying = true;
+        audioPlayer.play();
+        playIcon.classList.replace('fa-play', 'fa-pause');
+        document.querySelector('.player-container').classList.add('playing');
+        updatePlayerState();
+    }
+    
+    // Pause song
+    function pauseSong() {
+        isPlaying = false;
+        audioPlayer.pause();
+        playIcon.classList.replace('fa-pause', 'fa-play');
+        document.querySelector('.player-container').classList.remove('playing');
+        updatePlayerState();
+    }
+    
+    // Previous song
+    function prevSong() {
+        currentSongIndex--;
+        if (currentSongIndex < 0) {
+            currentSongIndex = (isShuffled ? shuffledQueue : originalQueue).length - 1;
         }
-
-        // Render stations to the grid
-        function renderStations() {
-            stationsContainer.innerHTML = '';
-            
-            stations.forEach((station, index) => {
-                const stationCard = document.createElement('div');
-                stationCard.className = `station-card ${index === currentStationIndex ? 'active' : ''}`;
-                stationCard.innerHTML = `
-                    <div class="station-icon" style="background: linear-gradient(135deg, ${station.color}, #3a0ca3);">
-                        <i class="${station.icon}"></i>
-                    </div>
-                    <h3 class="station-name-card">${station.name}</h3>
-                    <p class="station-genre">${station.genre}</p>
-                    <p class="station-frequency">${station.frequency}</p>
-                `;
-                
-                stationCard.addEventListener('click', () => selectStation(index));
-                stationsContainer.appendChild(stationCard);
-            });
+        loadSong(currentSongIndex);
+        if (isPlaying) {
+            playSong();
         }
-
-        // Load a station
-        function loadStation(index) {
-            // Stop current audio if playing
-            if (audio) {
-                audio.pause();
-                isPlaying = false;
-                playIcon.className = 'fas fa-play';
-            }
-            
-            // Update current station index
-            currentStationIndex = index;
-            
-            // In a real app, we would load the actual stream URL
-            // For demo purposes, we'll simulate loading
-            console.log(`Loading station: ${stations[index].name} - ${stations[index].streamUrl}`);
-            
-            // Update UI
-            updatePlayerDisplay();
-            renderStations();
-            nowPlayingFooter.textContent = stations[index].name;
-            
-            // If was playing before, start new station
-            if (isPlaying) {
-                // In a real app, we would create a new Audio object with the stream URL
-                // For demo, we'll simulate playing
-                playIcon.className = 'fas fa-pause';
-                
-                // Simulate audio context for demo
-                if (!audio) {
-                    audio = {
-                        volume: volume / 100,
-                        pause: () => {},
-                        play: () => {}
-                    };
-                }
-            }
-        }
-
-        // Toggle play/pause
-        function togglePlay() {
-            isPlaying = !isPlaying;
-            
-            if (isPlaying) {
-                playIcon.className = 'fas fa-pause';
-                console.log('Playing station:', stations[currentStationIndex].name);
-                
-                // In a real app, we would start the audio stream
-                // audio = new Audio(stations[currentStationIndex].streamUrl);
-                // audio.volume = volume / 100;
-                // audio.play();
-                
-                // For demo, simulate playing
-                if (!audio) {
-                    audio = {
-                        volume: volume / 100,
-                        pause: () => {},
-                        play: () => {}
-                    };
-                }
+    }
+    
+    // Next song
+    function nextSong() {
+        currentSongIndex++;
+        if (currentSongIndex >= (isShuffled ? shuffledQueue : originalQueue).length) {
+            if (isRepeated) {
+                currentSongIndex = 0;
             } else {
-                playIcon.className = 'fas fa-play';
-                console.log('Paused station');
-                
-                // In a real app: audio.pause();
+                currentSongIndex--;
+                pauseSong();
+                return;
             }
         }
-
-        // Play previous station
-        function playPrevStation() {
-            let newIndex = currentStationIndex - 1;
-            if (newIndex < 0) newIndex = stations.length - 1;
-            loadStation(newIndex);
+        loadSong(currentSongIndex);
+        if (isPlaying) {
+            playSong();
+        }
+    }
+    
+    // Update progress bar
+    function updateProgress() {
+        const { currentTime, duration } = audioPlayer;
+        const progressPercent = (currentTime / duration) * 100;
+        progressBar.style.setProperty('--progress', `${progressPercent}%`);
+        
+        // Format time
+        const formatTime = (time) => {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        };
+        
+        currentTimeEl.textContent = formatTime(currentTime);
+        
+        // Auto-play next song when current ends
+        if (currentTime >= duration - 0.5 && duration > 0) {
+            nextSong();
+        }
+    }
+    
+    // Set progress
+    function setProgress(e) {
+        const width = this.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audioPlayer.duration;
+        audioPlayer.currentTime = (clickX / width) * duration;
+    }
+    
+    // Set volume
+    function setVolume() {
+        audioPlayer.volume = this.value;
+    }
+    
+    // Toggle shuffle
+    function toggleShuffle() {
+        isShuffled = !isShuffled;
+        shuffleBtn.classList.toggle('active', isShuffled);
+        
+        if (isShuffled) {
+            // Find current song in shuffled queue
+            const currentSong = originalQueue[currentSongIndex];
+            currentSongIndex = shuffledQueue.findIndex(song => song.title === currentSong.title);
+        } else {
+            // Find current song in original queue
+            const currentSong = shuffledQueue[currentSongIndex];
+            currentSongIndex = originalQueue.findIndex(song => song.title === currentSong.title);
+        }
+        
+        updatePlayerState();
+    }
+    
+    // Toggle repeat
+    function toggleRepeat() {
+        isRepeated = !isRepeated;
+        repeatBtn.classList.toggle('active', isRepeated);
+        updatePlayerState();
+    }
+    
+    // Render queue
+    function renderQueue() {
+        queueList.innerHTML = '';
+        const queue = isShuffled ? shuffledQueue : originalQueue;
+        
+        queue.forEach((song, index) => {
+            const queueItem = document.createElement('div');
+            queueItem.className = `queue-item ${index === currentSongIndex ? 'active' : ''}`;
+            queueItem.innerHTML = `
+                <div class="queue-item-img">
+                    <img src="${song.cover}" alt="${song.title}">
+                </div>
+                <div class="queue-item-info">
+                    <h4>${song.title}</h4>
+                    <p>${song.artist}</p>
+                </div>
+                <div class="queue-item-duration">${song.duration}</div>
+            `;
             
-            // If was playing, continue playing
-            if (isPlaying) {
-                playIcon.className = 'fas fa-pause';
-            }
-        }
-
-        // Play next station
-        function playNextStation() {
-            let newIndex = currentStationIndex + 1;
-            if (newIndex >= stations.length) newIndex = 0;
-            loadStation(newIndex);
+            queueItem.addEventListener('click', () => {
+                currentSongIndex = index;
+                loadSong(currentSongIndex);
+                if (isPlaying) {
+                    playSong();
+                }
+            });
             
-            // If was playing, continue playing
-            if (isPlaying) {
-                playIcon.className = 'fas fa-pause';
-            }
+            queueList.appendChild(queueItem);
+        });
+    }
+    
+    // Update player state (for UI feedback)
+    function updatePlayerState() {
+        // Update active song in queue
+        const queueItems = document.querySelectorAll('.queue-item');
+        queueItems.forEach((item, index) => {
+            item.classList.toggle('active', index === currentSongIndex);
+        });
+        
+        // Update button states
+        shuffleBtn.classList.toggle('active', isShuffled);
+        repeatBtn.classList.toggle('active', isRepeated);
+    }
+    
+    // Event listeners
+    playBtn.addEventListener('click', () => {
+        isPlaying ? pauseSong() : playSong();
+    });
+    
+    prevBtn.addEventListener('click', prevSong);
+    nextBtn.addEventListener('click', nextSong);
+    shuffleBtn.addEventListener('click', toggleShuffle);
+    repeatBtn.addEventListener('click', toggleRepeat);
+    
+    audioPlayer.addEventListener('timeupdate', updateProgress);
+    audioPlayer.addEventListener('ended', nextSong);
+    
+    progressBar.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', setVolume);
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        switch (e.code) {
+            case 'Space':
+                e.preventDefault();
+                isPlaying ? pauseSong() : playSong();
+                break;
+            case 'ArrowLeft':
+                audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+                break;
+            case 'ArrowRight':
+                audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);
+                break;
+            case 'ArrowUp':
+                volumeSlider.value = Math.min(1, parseFloat(volumeSlider.value) + 0.1);
+                setVolume.call(volumeSlider);
+                break;
+            case 'ArrowDown':
+                volumeSlider.value = Math.max(0, parseFloat(volumeSlider.value) - 0.1);
+                setVolume.call(volumeSlider);
+                break;
         }
-
-        // Select a station from the grid
-        function selectStation(index) {
-            loadStation(index);
-            
-            // Start playing if not already playing
-            if (!isPlaying) {
-                togglePlay();
-            }
-        }
-
-        // Update volume
-        function updateVolume() {
-            volume = volumeSlider.value;
-            if (audio) {
-                audio.volume = volume / 100;
-            }
-        }
-
-        // Update player display with current station info
-        function updatePlayerDisplay() {
-            const station = stations[currentStationIndex];
-            currentStationEl.textContent = station.name;
-            currentTrackEl.textContent = getRandomTrack(station.genre);
-            currentArtistEl.textContent = getRandomArtist(station.genre);
-        }
-
-        // Update track info (simulated)
-        function updateTrackInfo() {
-            if (!isPlaying) return;
-            
-            const station = stations[currentStationIndex];
-            currentTrackEl.textContent = getRandomTrack(station.genre);
-            currentArtistEl.textContent = getRandomArtist(station.genre);
-        }
-
-        // Helper functions for demo track/artist names
-        function getRandomTrack(genre) {
-            const tracks = {
-                "Lo-fi, Chillhop": ["Study Session", "Rainy Day Vibes", "Coffee Shop Sounds", "Midnight Coding", "Chill Beats"],
-                "Classic Rock": ["Hotel California", "Stairway to Heaven", "Bohemian Rhapsody", "Sweet Child O' Mine", "Back in Black"],
-                "Smooth Jazz": ["Night Smooth", "City Lights", "Saxophone Dreams", "Midnight Blue", "Jazz Cafe"],
-                "Electronic, EDM": ["Neon Lights", "Club Beat", "Digital Dreams", "Energy Pulse", "Dance Floor"],
-                "Classical": ["Moonlight Sonata", "Four Seasons", "Symphony No. 5", "Canon in D", "Clair de Lune"],
-                "Indie, Alternative": ["Indie Dreams", "Alternative Reality", "Urban Echoes", "Modern Melancholy", "Underground Sound"]
-            };
-            
-            const genreTracks = tracks[genre] || ["Unknown Track"];
-            return genreTracks[Math.floor(Math.random() * genreTracks.length)];
-        }
-
-        function getRandomArtist(genre) {
-            const artists = {
-                "Lo-fi, Chillhop": ["Chillhop Music", "Lofi Girl", "Jazz Hop Cafe", "Ambient Relaxation", "Study Beats"],
-                "Classic Rock": ["Eagles", "Led Zeppelin", "Queen", "Guns N' Roses", "AC/DC"],
-                "Smooth Jazz": ["Kenny G", "Dave Koz", "Boney James", "Fourplay", "Chris Botti"],
-                "Electronic, EDM": ["Avicii", "Calvin Harris", "David Guetta", "Swedish House Mafia", "Marshmello"],
-                "Classical": ["Beethoven", "Mozart", "Bach", "Vivaldi", "Chopin"],
-                "Indie, Alternative": ["Arctic Monkeys", "The Strokes", "Tame Impala", "Vampire Weekend", "Florence + The Machine"]
-            };
-            
-            const genreArtists = artists[genre] || ["Various Artists"];
-            return genreArtists[Math.floor(Math.random() * genreArtists.length)];
-        }
-
-        // Initialize when page loads
-
-        window.addEventListener('DOMContentLoaded', init);
-
-
-
+    });
+    
+    // Initialize the player
+    initPlayer();
+    
+    // Add animation to album art on load
+    albumArt.addEventListener('load', function() {
+        this.style.opacity = 1;
+    });
+});
