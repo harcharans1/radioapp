@@ -4,7 +4,7 @@
                 name: "Chillhop Radio",
                 genre: "Lo-fi, Chillhop",
                 frequency: "101.5 FM",
-                streamUrl: "https://live.sgpc.net:8442/; nocache=889869",
+                streamUrl: "https://live.sgpc.net:8442/;%20nocache=889869",
                 color: "#4cc9f0",
                 icon: "fas fa-headphones"
             },
@@ -302,4 +302,5 @@
         // Initialize when page loads
 
         window.addEventListener('DOMContentLoaded', init);
+
 
