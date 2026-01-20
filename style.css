@@ -373,7 +373,6 @@ body {
 .volume-control input[type="range"] {
     flex-grow: 1;
     height: 4px;
-    -webkit-appearance: none;
     background-color: #e0e0e0;
     border-radius: 2px;
     outline: none;
@@ -571,3 +570,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
 }
+
