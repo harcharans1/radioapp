@@ -4,7 +4,7 @@
                 name: "Chillhop Radio",
                 genre: "Lo-fi, Chillhop",
                 frequency: "101.5 FM",
-                streamUrl: "https://stream.chillhop.com/stream",
+                streamUrl: "https://sgpc.net/live-kirtan-sri-harmandir-sahib-128-kbps/",
                 color: "#4cc9f0",
                 icon: "fas fa-headphones"
             },
@@ -300,4 +300,5 @@
         }
 
         // Initialize when page loads
+
         window.addEventListener('DOMContentLoaded', init);
