@@ -231,7 +231,7 @@ header {
 }
 
 .channel-icon {
-    font-size: 3rem;
+    font-size: 1rem;
     color: #FF9800;
     margin-bottom: 1rem;
 }
@@ -411,3 +411,4 @@ footer {
             border: 3px solid #f6f2f2;
             
 }
+
