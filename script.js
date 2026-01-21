@@ -1,9 +1,9 @@
 // Audio elements for demo
 const audioChannels = {
-    kirtan: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    katha: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-    history: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-    live: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
+    kirtan: 'https://live.sgpc.net:8442/; nocache=889869',
+    katha: 'https://usa20.fastcast4u.com:3760/;?type=http',
+    history: 'https://usa3.fastcast4u.com/proxy/radiododra2?mp=/1',
+    live: 'https://radio.sikhnet.com/proxy/channel1/stream_high_autodj'
 };
 
 let currentAudio = null;
@@ -23,10 +23,10 @@ const artistName = document.getElementById('artistName');
 
 // Channel names in Punjabi
 const channelNames = {
-    kirtan: { track: 'ਕੀਰਤਨ - ਰਵਿੰਦਰ ਸਿੰਘ', artist: 'ਗੁਰਬਾਣੀ ਕੀਰਤਨ' },
-    katha: { track: 'ਕਥਾ - ਸੁਖਮਨੀ ਸਾਹਿਬ', artist: 'ਗਿਆਨੀ ਗੁਰਵਿੰਦਰ ਸਿੰਘ' },
-    history: { track: 'ਸਿੱਖ ਇਤਿਹਾਸ', artist: 'ਡਾ. ਹਰਜਿੰਦਰ ਸਿੰਘ' },
-    live: { track: 'ਲਾਈਵ ਹਰਿਮੰਦਰ ਸਾਹਿਬ', artist: 'ਅੰਮ੍ਰਿਤਸਰ' }
+    kirtan: { track: 'ਸ੍ਰੀ ਹਰਮੰਦਰ ਸਾਹਿਬ', artist: 'Golden Temple Amritsar' },
+    katha: { track: 'ਬ੍ਰਹਮ ਬੁੰਗਾ ਸਾਹਿਬ ਦੋਦੜਾ', artist: 'Gurduwara Brahm Bunga Sahib Dodra' },
+    history: { track: 'ਵਾਹਿਗੁਰੂ', artist: 'Divine Love' },
+    live: { track: 'ਆਪਸਪੀਸ', artist: 'Divine Love' }
 };
 
 // Play/Pause function
@@ -164,3 +164,4 @@ window.addEventListener('load', () => {
     console.log('3. ਇਤਿਹਾਸ: ਤੁਹਾਡਾ_ਸਟ੍ਰੀਮ_URL_3');
     console.log('4. ਲਾਈਵ: ਤੁਹਾਡਾ_ਲਾਈਵ_ਸਟ੍ਰੀਮ_URL');
 });
+
