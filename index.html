@@ -1,139 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Gurbani Radio</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=GurbaniAkhar&family=Noto+Sans+Gurmukhi&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="music-player-container">
-        <div class="sidebar">
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
             <div class="logo">
-                <i class="fas fa-music"></i>
-                <span>Music Player</span>
+                <i class="fas fa-pray"></i>
+                <span>ਗੁਰਬਾਣੀ ਰੇਡੀਓ</span>
             </div>
-            <div class="menu">
-                <div class="menu-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-compass"></i>
-                    <span>Discover</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-heart"></i>
-                    <span>Favorites</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Recent</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fas fa-folder"></i>
-                    <span>Playlists</span>
-                </div>
-            </div>
-            
-            <div class="playlist-section">
-                <div class="section-header">
-                    <span>Your Playlists</span>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="playlist-list">
-                    <div class="playlist-item active">
-                        <i class="fas fa-headphones"></i>
-                        <span>My Mix</span>
-                    </div>
-                    <div class="playlist-item">
-                        <i class="fas fa-sun"></i>
-                        <span>Chill Vibes</span>
-                    </div>
-                    <div class="playlist-item">
-                        <i class="fas fa-running"></i>
-                        <span>Workout</span>
-                    </div>
-                    <div class="playlist-item">
-                        <i class="fas fa-car"></i>
-                        <span>Road Trip</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="main-content">
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for songs, artists, or albums...">
-                
-                    
-            
-            </div>
-            
-            <div class="now-playing-header">
-                <h1>Now Playing</h1>
-                <div class="view-options">
-                    
-                </div>
-            </div>
-            
-            <div class="player-container">
-                <div class="album-art">
-                    <img src="https://source.unsplash.com/random/400x400/?music,album" alt="Album Art" id="album-art">
-                    <div class="vinyl-overlay"></div>
-                </div>
-                
-                <div class="song-info">
-                    <h2 id="song-title">Song Title</h2>
-                    <p id="artist-name">Artist Name</p>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                        <div class="time-info">
-                            <span id="current-time">0:00</span>
-                            <span id="duration">3:45</span>
-                        </div>
-                    </div>
-                    
-                    <div class="controls">
-                        <button class="control-btn" id="shuffle-btn">
-                            <i class="fas fa-random"></i>
-                        </button>
-                        <button class="control-btn" id="prev-btn">
-                            <i class="fas fa-step-backward"></i>
-                        </button>
-                        <button class="control-btn play-btn" id="play-btn">
-                            <i class="fas fa-play" id="play-icon"></i>
-                        </button>
-                        <button class="control-btn" id="next-btn">
-                            <i class="fas fa-step-forward"></i>
-                        </button>
-                        <button class="control-btn" id="repeat-btn">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="volume-control">
-                        <i class="fas fa-volume-down"></i>
-                        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="queue-section">
-                <h3>Up Next</h3>
-                <div class="queue-list" id="queue-list">
-                    <!-- Queue items will be added dynamically -->
-                </div>
-            </div>
-        </div>
-    </div>
+            <ul class="nav-links">
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#live"><i class="fas fa-broadcast-tower"></i> Live</a></li>
+                <li><a href="#shows"><i class="fas fa-list"></i> Show</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+            <button class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
 
-    <audio id="audio-player"></audio>
-    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Gurbani Radio</h1>
+                <p>ਗੁਰਬਾਣੀ, ਕੀਰਤਨ ਅਤੇ ਸਿੱਖ ਇਤਿਹਾਸ 24/7</p>
+                <button id="playBtn" class="play-btn">
+                    <i class="fas fa-play"></i> Live
+                </button>
+            </div>
+            <div class="hero-image">
+                <div class="radio-icon">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Section -->
+        <section class="player-section">
+            <div class="player">
+                <div class="player-info">
+                    <h3 id="currentTrack">ਗੁਰਬਾਣੀ ਕੀਰਤਨ</h3>
+                    <p id="artistName">ਰਵਿੰਦਰ ਸਿੰਘ</p>
+                </div>
+                <div class="player-controls">
+                    <button id="prevBtn"><i class="fas fa-step-backward"></i></button>
+                    <button id="playPauseBtn" class="play-pause">
+                        <i class="fas fa-play" id="playIcon"></i>
+                    </button>
+                    <button id="nextBtn"><i class="fas fa-step-forward"></i></button>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                </div>
+            </div>
+        </section>
+
+        <!-- Channels Section -->
+        <section id="shows" class="channels-section">
+            <h2><i class="fas fa-satellite-dish"></i> Channel</h2>
+            <div class="channels-grid">
+                <div class="channel-card" data-channel="kirtan">
+                    <div class="channel-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>ਕੀਰਤਨ</h3>
+                    <p>ਸ਼ਾਂਤੀਪੂਰਣ ਗੁਰਬਾਣੀ ਕੀਰਤਨ</p>
+                    <button class="channel-btn">ਸੁਣੋ</button>
+                </div>
+                <div class="channel-card" data-channel="katha">
+                    <div class="channel-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>ਕਥਾ</h3>
+                    <p>ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਕਥਾ</p>
+                    <button class="channel-btn">ਸੁਣੋ</button>
+                </div>
+                <div class="channel-card" data-channel="history">
+                    <div class="channel-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>ਇਤਿਹਾਸ</h3>
+                    <p>ਸਿੱਖ ਇਤਿਹਾਸ ਅਤੇ ਸਾਖੀਆਂ</p>
+                    <button class="channel-btn">ਸੁਣੋ</button>
+                </div>
+                <div class="channel-card" data-channel="live">
+                    <div class="channel-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3>ਲਾਈਵ</h3>
+                    <p>ਲਾਈਵ ਹਰਿਮੰਦਰ ਸਾਹਿਬ</p>
+                    <button class="channel-btn">ਸੁਣੋ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section class="schedule-section">
+            <h2><i class="fas fa-calendar-alt"></i> ਸਮਾਂ ਸਾਰਨੀ</h2>
+            <div class="schedule-table">
+                <div class="schedule-item">
+                    <span class="time">6:00 AM</span>
+                    <span class="program">ਜਪੁਜੀ ਸਾਹਿਬ</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">9:00 AM</span>
+                    <span class="program">ਰਹਿਰਾਸ ਸਾਹਿਬ</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">12:00 PM</span>
+                    <span class="program">ਕੀਰਤਨ</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">6:00 PM</span>
+                    <span class="program">ਕਥਾ</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">9:00 PM</span>
+                    <span class="program">ਸੋਹਿਲਾ ਸਾਹਿਬ</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Gurbani Radio</h3>
+                <p>24 Hour Broadcast of Gurbani</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>ਲਿੰਕ</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shows">Channel</a></li>
+                    <li><a href="#about">Contact</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 ਗੁਰਬਾਣੀ ਰੇਡੀਓ. ਸਾਰੇ ਅਧਿਕਾਰ ਸੁਰੱਖਿਅਤ।</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
+    <script type="text/babel" src="app.js"></script>
 </body>
 </html>
