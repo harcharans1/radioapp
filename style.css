@@ -402,3 +402,12 @@ footer {
         padding: 2rem 1rem;
     }
 }
+
+.circle-img {
+            width: 150px;              /* Set desired width */
+            height: 150px;             /* Set desired height */
+            border-radius: 60%;        /* Makes it circular */
+            object-fit: cover;         /* Ensures image fills the circle without distortion */
+            border: 3px solid #f6f2f2;
+            
+}
